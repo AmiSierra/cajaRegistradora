@@ -1,1 +1,58 @@
+let listaCompra = [{   
+  cod_articulo: 'C',          
+  cantidad: 2,      
+  promocion: true,
+},
+{
+  cod_articulo: 'D',          
+  cantidad: 5,      
+  promocion: false,
+},
+{
+  cod_articulo: 'C',           
+  cantidad: 1,      
+  promocion: true,
+},
+{
+  cod_articulo: 'B',          
+  cantidad: 1,      
+  promocion: true,
+},
+{
+  cod_articulo: 'B',           
+  cantidad: 1,      
+  promocion: true,
+},
+{
+  cod_articulo: 'A',           
+  cantidad: 2,      
+  promocion: true,
+}
 
+];
+
+
+
+
+
+
+const listaCompradepurada = listaCompra.reduce((iterador, valorActual) => {
+const artRepetido = iterador.find(articulo => articulo.cod_articulo === valorActual.cod_articulo);
+if (artRepetido) {
+  return iterador.map((articulo) => {
+    if (articulo.cod_articulo === valorActual.cod_articulo) {
+      return {
+        ...articulo,
+        cantidad: articulo.cantidad + valorActual.cantidad
+      }
+    }
+
+    return articulo;
+  });
+}
+
+return [...iterador, valorActual];
+}, []); 
+
+/*console.log(listaCompra);*/
+console.log(listaCompradepurada);
