@@ -21,18 +21,16 @@ constructor(co,c,pu,pr,cp,pp)
       
 
         let codigo = document.getElementById("codigo").value;
-    
-
         let c = document.getElementById("cantidad");
         let cantidad = parseInt(c.value);
     
     
         listaCompra.push(new Articulo(codigo,cantidad));
 
-        document.getElementById("codigo").value=""    //ojo, esto no lo he puesto en github
-        document.getElementById("cantidad").value=""  //no lo he puesto en github
+        document.getElementById("codigo").value=""    
+        document.getElementById("cantidad").value=""  
        
-        console.log(listaCompra);
+        //console.log(listaCompra);
 
 
       
@@ -41,22 +39,24 @@ constructor(co,c,pu,pr,cp,pp)
       
     
 
-   function totalizar()
-   {
+function depurar()
+{
      
   const listaCompradepurada = listaCompra.reduce((iterador, valorActual) => {
-    const artRepetido = iterador.find(articulo => articulo.cod_articulo === valorActual.cod_articulo);
+    const artRepetido = iterador.find(articulo => articulo.codigo === valorActual.codigo);
     
     if (artRepetido) {
       return iterador.map((articulo) => {
-        if (articulo.cod_articulo === valorActual.cod_articulo) {
+        if (articulo.codigo === valorActual.codigo) {
           return {
             ...articulo,
             cantidad: articulo.cantidad + valorActual.cantidad
+            
           }
         }
     
         return articulo;
+        
       });
     }
     
@@ -64,9 +64,46 @@ constructor(co,c,pu,pr,cp,pp)
     }, []); 
     
    
-    console.log(listaCompradepurada);
-  }
+    //console.log(listaCompradepurada);
+   //}
+
+    //function totalizar()
+    //{
+  listaCompradepurada.forEach(articulo =>
+  {
+
+     let x = listaPrecios.find (articulo =>articulo.cod_articulo === listaCompradepurada.articulo);
   
+      console.log(x);
+  
+    if (articulo.promocion === `true`)
+    {
+       parcialProm = listaCompradepurada.cantidad / listaPrecios.cantPromocion;
+       let subtotalProm = parcialProm * listaPrecios.precioPromocion;
+         if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
+          {
+          let subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
+          }
+      let totalProm = subtotalProm + subtotalResiduo;
+      console.log(totalProm);
+      totalProm.innerHTML += (`${listaCompradepurada.Articulo} ${totalProm}<br>`);  
+    }
+    else
+    {
+     let subtotalNormal = listaCompradepurada.cantidad *  listaPrecios.precioUnitario;
+     console.log(subtotalNormal);
+     totalNormal.innerHTML += (`${listaCompradepurada.Articulo} ${totalNormal}<br>`);  
+    }
+
+  
+   let total = subtotalProm + subtotalResiduo + subtotalNormal;
+   total.innerHTML += (`El total para esta compra es € ${total}<br>`);
+    console.log(total); 
+  });
+
+}
+
+
     
              
            
@@ -86,7 +123,7 @@ b.addEventListener("click", ingresarArticulos);
 
 
 let j = document.getElementById("total");
-j.addEventListener("click", totalizar);
+j.addEventListener("click", depurar);
 
 
 
