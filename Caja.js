@@ -15,7 +15,7 @@ constructor(co,c,pu,pr,cp,pp)
 
    function ingresarArticulos()
    {
-         /*onsubmit = "return ingresarArticulos()" */
+         onsubmit = "return ingresarArticulos()" 
 
      
       
@@ -23,6 +23,8 @@ constructor(co,c,pu,pr,cp,pp)
         let codigo = document.getElementById("codigo").value;
         let c = document.getElementById("cantidad");
         let cantidad = parseInt(c.value);
+        
+       
     
     
         listaCompra.push(new Articulo(codigo,cantidad));
@@ -30,16 +32,14 @@ constructor(co,c,pu,pr,cp,pp)
         document.getElementById("codigo").value=""    
         document.getElementById("cantidad").value=""  
        
-        //console.log(listaCompra);
+        console.log(listaCompra);
 
+   }
 
       
-        
-   } 
-      
-    
+       
 
-function depurar()
+function totalizar()
 {
      
   const listaCompradepurada = listaCompra.reduce((iterador, valorActual) => {
@@ -51,6 +51,7 @@ function depurar()
           return {
             ...articulo,
             cantidad: articulo.cantidad + valorActual.cantidad
+            
             
           }
         }
@@ -64,42 +65,64 @@ function depurar()
     }, []); 
     
    
-    //console.log(listaCompradepurada);
-   //}
-
-    //function totalizar()
-    //{
-  listaCompradepurada.forEach(articulo =>
-  {
-
-     let x = listaPrecios.find (articulo =>articulo.cod_articulo === listaCompradepurada.articulo);
+    console.log(listaCompradepurada);
   
-      console.log(x);
+
+
+    
+   listaCompradepurada.forEach(iterador => {
+      const equivalente = listaPrecios.find (element =>element.codigo === iterador.codigo);
+      if (equivalente)
+      {
+        
+        console.log([...iterador.codigo, equivalente.promocion]);
+        
+      }
+      if (equivalente.promocion === `true`)
+      {
+        parcialProm = (listaCompradepurada.cantidad / equivalente.cantPromocion);
+
+        Console.log(parcialProm)
+       
+      }
+    })
+    
+
+    
   
-    if (articulo.promocion === `true`)
-    {
-       parcialProm = listaCompradepurada.cantidad / listaPrecios.cantPromocion;
-       let subtotalProm = parcialProm * listaPrecios.precioPromocion;
+    
+       
+       
+
+       /* subtotalProm = (parcialProm * equivalente.precioPromocion);
+ 
+        console.log (subtotalProm);
+      
+      
+        
+   
+      
+       
          if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
           {
-          let subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
+          subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
           }
-      let totalProm = subtotalProm + subtotalResiduo;
-      console.log(totalProm);
+      totalProm = subtotalProm + subtotalResiduo;
+      //console.log(totalProm);
       totalProm.innerHTML += (`${listaCompradepurada.Articulo} ${totalProm}<br>`);  
     }
     else
     {
-     let subtotalNormal = listaCompradepurada.cantidad *  listaPrecios.precioUnitario;
-     console.log(subtotalNormal);
+     subtotalNormal = listaCompradepurada.cantidad *  listaPrecios.precioUnitario;
+     //console.log(subtotalNormal);
      totalNormal.innerHTML += (`${listaCompradepurada.Articulo} ${totalNormal}<br>`);  
     }
 
   
-   let total = subtotalProm + subtotalResiduo + subtotalNormal;
+   total = subtotalProm + subtotalResiduo + subtotalNormal;
    total.innerHTML += (`El total para esta compra es € ${total}<br>`);
-    console.log(total); 
-  });
+    //console.log(total); 
+  });*/
 
 }
 
@@ -111,11 +134,18 @@ function depurar()
 
 
 let listaPrecios = [];
+
+
 let listaCompra = [];
+let subtotalProm = 0;
+let subtotalNormal = 0;
+let subtotalResiduo = 0;
+let total = 0;
 listaPrecios.push(new Articulo(`A`,1,10,true,2,15));
 listaPrecios.push(new Articulo(`B`,1,20,true,3,50));
 listaPrecios.push(new Articulo(`C`,1,15,true,2,25));
 listaPrecios.push(new Articulo(`D`,1,20,false, undefined,undefined));
+
 
 let b = document.getElementById("ingresar");
 b.addEventListener("click", ingresarArticulos);
@@ -123,7 +153,7 @@ b.addEventListener("click", ingresarArticulos);
 
 
 let j = document.getElementById("total");
-j.addEventListener("click", depurar);
+j.addEventListener("click", totalizar);
 
 
 
