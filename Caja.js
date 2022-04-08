@@ -32,7 +32,7 @@ constructor(co,c,pu,pr,cp,pp)
         document.getElementById("codigo").value=""    
         document.getElementById("cantidad").value=""  
        
-        console.log(listaCompra);
+        //console.log(listaCompra);
 
    }
 
@@ -71,39 +71,33 @@ function totalizar()
 
     
    listaCompradepurada.forEach(iterador => {
-      const equivalente = listaPrecios.find (element =>element.codigo === iterador.codigo);
-      if (equivalente)
-      {
-        
-        console.log([...iterador.codigo, equivalente.promocion]);
-        
-      }
-      if (equivalente.promocion === `true`)
-      {
-        parcialProm = (listaCompradepurada.cantidad / equivalente.cantPromocion);
-
-        Console.log(parcialProm)
-       
-      }
-    })
-    
-
-    
   
-    
-       
-       
-
-       /* subtotalProm = (parcialProm * equivalente.precioPromocion);
- 
-        console.log (subtotalProm);
-      
-      
+      let equivalente = listaPrecios.find (element =>element.codigo === iterador.codigo)
+      {
+          if (equivalente!= undefined && equivalente.promocion === true)
+          {
         
+          parcialProm = parseInt(iterador.cantidad / equivalente.cantPromocion);
+        
+          console.log(parcialProm);
+
+          subtotalProm = (parcialProm * equivalente.precioPromocion);
+ 
+          console.log (subtotalProm);
+          }
+         
+      
+     };              
+    });      
+}
+           
+         subtotalProm = (parcialProm * equivalente.precioPromocion); //si meto esta linea dentro del if todo se daña
+ 
+         console.log (subtotalProm); //esta otra lo mismo 
    
       
        
-         if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
+         /*if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
           {
           subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
           }
@@ -124,20 +118,16 @@ function totalizar()
     //console.log(total); 
   });*/
 
-}
 
 
-    
-             
-           
-              
 
 
 let listaPrecios = [];
-
+let parcialProm = 0;
+let subtotalProm = 0;
 
 let listaCompra = [];
-let subtotalProm = 0;
+
 let subtotalNormal = 0;
 let subtotalResiduo = 0;
 let total = 0;
