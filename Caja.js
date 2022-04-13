@@ -1,5 +1,7 @@
 class Articulo
 {
+
+  
 constructor(co,c,pu,pr,cp,pp)
   {
     this.codigo = co;
@@ -12,6 +14,25 @@ constructor(co,c,pu,pr,cp,pp)
   }
 }
 
+var parcialProm = 0;
+var listaPrecios = [];
+
+var subtotalProm = 0;
+
+var listaCompra = [];
+
+var subtotalNormal = 0;
+var subtotalResiduo = 0;
+var total = 0;
+listaPrecios.push(new Articulo(`A`,1,10,true,2,15));
+listaPrecios.push(new Articulo(`B`,1,20,true,3,50));
+listaPrecios.push(new Articulo(`C`,1,15,true,2,25));
+listaPrecios.push(new Articulo(`D`,1,20,false, undefined,undefined));
+let b = document.getElementById("ingresar");
+b.addEventListener("click", ingresarArticulos);
+
+let j = document.getElementById("total");
+j.addEventListener("click", totalizar);
 
    function ingresarArticulos()
    {
@@ -76,28 +97,24 @@ function totalizar()
       {
           if (equivalente!= undefined && equivalente.promocion === true)
           {
-        
-          parcialProm = parseInt(iterador.cantidad / equivalente.cantPromocion);
-        
-          console.log(parcialProm);
-
-          subtotalProm = (parcialProm * equivalente.precioPromocion);
- 
-          console.log (subtotalProm);
+          
+            parcialProm = parseInt(iterador.cantidad / equivalente.cantPromocion);
+            console.log(parcialProm);
+            subtotalProm = (parcialProm * equivalente.precioPromocion);
+            console.log (subtotalProm);
           }
-         
+          
+          
       
-     };              
+     };             
     });      
 }
            
-         subtotalProm = (parcialProm * equivalente.precioPromocion); //si meto esta linea dentro del if todo se daña
- 
-         console.log (subtotalProm); //esta otra lo mismo 
+
    
-      
+     
        
-         /*if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
+         if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
           {
           subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
           }
@@ -122,28 +139,7 @@ function totalizar()
 
 
 
-let listaPrecios = [];
-let parcialProm = 0;
-let subtotalProm = 0;
 
-let listaCompra = [];
-
-let subtotalNormal = 0;
-let subtotalResiduo = 0;
-let total = 0;
-listaPrecios.push(new Articulo(`A`,1,10,true,2,15));
-listaPrecios.push(new Articulo(`B`,1,20,true,3,50));
-listaPrecios.push(new Articulo(`C`,1,15,true,2,25));
-listaPrecios.push(new Articulo(`D`,1,20,false, undefined,undefined));
-
-
-let b = document.getElementById("ingresar");
-b.addEventListener("click", ingresarArticulos);
-
-
-
-let j = document.getElementById("total");
-j.addEventListener("click", totalizar);
 
 
 
