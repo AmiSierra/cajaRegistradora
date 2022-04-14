@@ -63,7 +63,8 @@ j.addEventListener("click", totalizar);
 function totalizar()
 {
      
-  const listaCompradepurada = listaCompra.reduce((iterador, valorActual) => {
+  const listaCompradepurada = listaCompra.reduce((iterador, valorActual) =>
+  {
     const artRepetido = iterador.find(articulo => articulo.codigo === valorActual.codigo);
     
     if (artRepetido) {
@@ -83,67 +84,52 @@ function totalizar()
     }
     
     return [...iterador, valorActual];
-    }, []); 
+  }, []); 
     
    
+
     console.log(listaCompradepurada);
   
 
-
     
-   listaCompradepurada.forEach(iterador => {
+   listaCompradepurada.forEach(iterador => 
+    {
   
       let equivalente = listaPrecios.find (element =>element.codigo === iterador.codigo)
       {
           if (equivalente!= undefined && equivalente.promocion === true)
           {
           
+                    
             parcialProm = parseInt(iterador.cantidad / equivalente.cantPromocion);
             console.log(parcialProm);
             subtotalProm = (parcialProm * equivalente.precioPromocion);
-            console.log (subtotalProm);
+            console.log (subtotalProm); 
+          
+                 
+    
+            if (iterador.cantidad % equivalente.cantPromocion != 0)
+            {
+              subtotalResiduo = iterador.cantidad % equivalente.cantPromocion * equivalente.precioUnitario;
+              console.log(subtotalResiduo);
+            }
+              totalProm = subtotalProm + subtotalResiduo;
+              console.log(totalProm);
+              totalProm.innerHTML += (`${iterador.Articulo} ${totalProm}<br>`);
+              console.log("hola");
           }
-          
-          
-      
-     };             
-    });      
-}
-           
-
-   
-     
-       
-         if (listaCompradepurada.cantidad % listaPrecios.cantPromocion != 0)
+          else
           {
-          subtotalResiduo = listaCompradepurada.cantidad % listaPrecios.cantPromocion * listaPrecios.precioUnitario;
-          }
-      totalProm = subtotalProm + subtotalResiduo;
-      //console.log(totalProm);
-      totalProm.innerHTML += (`${listaCompradepurada.Articulo} ${totalProm}<br>`);  
-    }
-    else
-    {
-     subtotalNormal = listaCompradepurada.cantidad *  listaPrecios.precioUnitario;
-     //console.log(subtotalNormal);
-     totalNormal.innerHTML += (`${listaCompradepurada.Articulo} ${totalNormal}<br>`);  
-    }
-
+            
+            subtotalNormal = iterador.cantidad * equivalente.precioUnitario;
+            
+            totalNormal.innerHTML += (`${iterador.Articulo} ${totalNormal}<br>`); 
+          } 
+          total = subtotalProm + subtotalResiduo + subtotalNormal;
+          total.innerHTML += (`El total para esta compra es € ${total}<br>`);
+          console.log(total);
+      }   
+      
+    });            
+} 
   
-   total = subtotalProm + subtotalResiduo + subtotalNormal;
-   total.innerHTML += (`El total para esta compra es € ${total}<br>`);
-    //console.log(total); 
-  });*/
-
-
-
-
-
-
-
-
-
-
-
-
-
