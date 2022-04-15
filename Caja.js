@@ -53,7 +53,7 @@ j.addEventListener("click", totalizar);
         document.getElementById("codigo").value=""    
         document.getElementById("cantidad").value=""  
        
-        //console.log(listaCompra);
+        console.log(listaCompra);
 
    }
 
@@ -88,7 +88,7 @@ function totalizar()
     
    
 
-    console.log(listaCompradepurada);
+   // console.log(listaCompradepurada);
   
 
     
@@ -102,34 +102,39 @@ function totalizar()
           
                     
             parcialProm = parseInt(iterador.cantidad / equivalente.cantPromocion);
-            console.log(parcialProm);
+          //  console.log(parcialProm);
             subtotalProm = (parcialProm * equivalente.precioPromocion);
-            console.log (subtotalProm); 
+           // console.log (subtotalProm); 
+            total = total + subtotalProm;
+           // console.log (total);
           
                  
     
             if (iterador.cantidad % equivalente.cantPromocion != 0)
             {
               subtotalResiduo = iterador.cantidad % equivalente.cantPromocion * equivalente.precioUnitario;
-              console.log(subtotalResiduo);
+             // console.log(subtotalResiduo);
             }
-              totalProm = subtotalProm + subtotalResiduo;
-              console.log(totalProm);
-              totalProm.innerHTML += (`${iterador.Articulo} ${totalProm}<br>`);
-              console.log("hola");
+              
+              total = total + subtotalResiduo;
+            //  console.log (total);
+
+              
+              
           }
-          else
+          else if (equivalente!= undefined && equivalente.promocion === false)
           {
             
             subtotalNormal = iterador.cantidad * equivalente.precioUnitario;
+            total = total + subtotalNormal;
+           // console.log (total);
             
-            totalNormal.innerHTML += (`${iterador.Articulo} ${totalNormal}<br>`); 
           } 
-          total = subtotalProm + subtotalResiduo + subtotalNormal;
-          total.innerHTML += (`El total para esta compra es € ${total}<br>`);
-          console.log(total);
+          
+          
       }   
-      
+
+      totalito.innerHTML = (`El total para esta compra es de € ${total}`);
+          console.log(total);
     });            
 } 
-  
